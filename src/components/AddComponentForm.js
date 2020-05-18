@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Button, TextField, MenuItem} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 import './AddComponentForm.css'
-import {statusTypes, ComponentDetails} from '../constants/MappingConstants'
+import {ComponentDetails} from '../constants/MappingConstants'
 
 
 const initialState = {
@@ -21,8 +21,7 @@ const initialState = {
     purchaseDate: '',
     price: '',
     purchasedPlace: '',
-    billNumber: '',
-    status: 'Available'
+    billNumber: ''
 };
 
 class AddComponentForm extends Component {
@@ -37,13 +36,11 @@ class AddComponentForm extends Component {
     };
 
     buildComponentDetailsObject(event) {
-        console.log(event.currentTarget.form);
         const componentDetails = this.state.ComponentDetails;
         componentDetails.referenceCode = this.state.referenceCode;
         componentDetails.unitName = this.state.unitName;
         componentDetails.unitType = this.state.unitType;
         componentDetails.quantity = this.state.quantity;
-        componentDetails.statusType = this.state.statusType;
         componentDetails.parameters = this.state.parameters;
         componentDetails.datasheetUrl = this.state.datasheetUrl;
         componentDetails.productUrl = this.state.productUrl;
@@ -56,8 +53,8 @@ class AddComponentForm extends Component {
         componentDetails.purchasedPlace = this.state.purchasedPlace;
         componentDetails.price = this.state.price;
         componentDetails.billNumber = this.state.billNumber;
-        componentDetails.status = this.state.status;
         event.preventDefault();
+        //Todo: remove console logs
         console.log(componentDetails);
     }
 
@@ -66,6 +63,7 @@ class AddComponentForm extends Component {
         this.setState(initialState);
     };
 
+    //Todo: Add error messages and restrictions like only numbers for Quantity field is allowed
     render() {
         return (
             <div className="wrapper">
@@ -103,15 +101,6 @@ class AddComponentForm extends Component {
                                    required={false}/>
                         <TextField label="Bill Number" onChange={this.handleChange('billNumber')} className={"field"}
                                    required={false}/>
-                       <TextField className={"field"} select label="Unit Status" required={true}
-                                   onChange={this.handleChange('status')}
-                        >
-                            {statusTypes.map(option => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.value}
-                                </MenuItem>
-                            ))}
-                        </TextField>
 
                         <div className={"buttonContainer"}>
                             <Button size={'medium'} type="submit" value="Submit" className={"button"} variant="contained" color="primary">

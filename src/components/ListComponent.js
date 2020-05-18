@@ -16,19 +16,18 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { useHistory } from "react-router-dom";
 
-function createData(unitName, type, referenceCode, quantity, parameters, storageLocation) {
-    return { unitName, type, referenceCode, quantity, parameters, storageLocation };
+function createData(componentId, unitName, type, referenceCode, quantity, parameters, storageLocation) {
+    return { componentId, unitName, type, referenceCode, quantity, parameters, storageLocation };
 }
 
 const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3,3),
-    createData('Donut', 452, 25.0, 51, 4.9,3),
-    createData('Eclair', 262, 16.0, 24, 6.0,5),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0,5),
-    createData('Gingerbread', 356, 16.0, 49, 3.9,6),
+    createData(1, 'Cupcake', 305, 3.7, 67, 4.3,3),
+    createData(2, 'Donut', 452, 25.0, 51, 4.9,3),
+    createData(3, 'Eclair', 262, 16.0, 24, 6.0,5),
+    createData(4,'Frozen yoghurt', 159, 6.0, 24, 4.0,5),
+    createData(5,'Gingerbread', 356, 16.0, 49, 3.9,6),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -58,7 +57,7 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-    { disablePadding: false, label: '' },
+    { id: 'componentId', disablePadding: false, label: 'Component ID' },
     { id: 'unitName', disablePadding: false, label: 'Unit Name' },
     { id: 'type', disablePadding: false, label: 'Type' },
     { id: 'referenceCode', disablePadding: false, label: 'Reference Code' },
@@ -79,7 +78,7 @@ function EnhancedTableHead(props) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.id === 'unitName' ? 'left' : 'center'}
+                        align="left"
                         padding={headCell.disablePadding ? 'none' : 'default'}
                         sortDirection={orderBy === headCell.id ? order : false}
                     >
@@ -163,7 +162,12 @@ export default function EnhancedTable() {
         setPage(0);
     };
 
-    const [open, setOpen] = React.useState(false);
+    const history = useHistory();
+
+    const handleRowClick = (componentId) => () => {
+        let path = 'details/' + componentId;
+        history.push(path);
+    };
 
     return (
         <div className={classes.root}>
@@ -197,29 +201,25 @@ export default function EnhancedTable() {
                         <TableBody>
                             {stableSort(rows, getComparator(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, index) => {
-                                    const labelId = `enhanced-table-${index}`;
+                                .map((row) => {
 
                                     return (
                                         <TableRow
                                             hover
                                             role="checkbox"
                                             tabIndex={-1}
-                                            key={row.unitName}
+                                            key={row.componentId}
+                                            onClick={handleRowClick(row.componentId)}
                                         >
-                                            <TableCell>
-                                                <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-                                                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                                                </IconButton>
+                                            <TableCell component="th" id={row.componentId} scope="row">
+                                                {row.componentId}
                                             </TableCell>
-                                            <TableCell component="th" id={labelId} scope="row">
-                                                {row.unitName}
-                                            </TableCell>
-                                            <TableCell align="center">{row.type}</TableCell>
-                                            <TableCell align="center">{row.referenceCode}</TableCell>
-                                            <TableCell align="center">{row.quantity}</TableCell>
-                                            <TableCell align="center">{row.parameters}</TableCell>
-                                            <TableCell align="center">{row.storageLocation}</TableCell>
+                                            <TableCell>{row.unitName}</TableCell>
+                                            <TableCell>{row.type}</TableCell>
+                                            <TableCell>{row.referenceCode}</TableCell>
+                                            <TableCell>{row.quantity}</TableCell>
+                                            <TableCell>{row.parameters}</TableCell>
+                                            <TableCell>{row.storageLocation}</TableCell>
                                         </TableRow>
                                     );
                                 })}

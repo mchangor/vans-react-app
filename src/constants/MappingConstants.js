@@ -17,27 +17,5 @@ export const ComponentDetails = {
     price: String,
     purchasedPlace: String,
     billNumber: String,
-    status: String
 };
 
-
-export const statusTypes = [
-    {
-        value: 'Available'
-    },
-    {
-        value: 'Not Available'
-    },
-    {
-        value: 'In Use'
-    },
-    {
-        value: 'Damaged'
-    },
-    {
-        value: 'Obsolete'
-    },
-    {
-        value: 'Repairing'
-    }
-];

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Route, BrowserRouter} from 'react-router-dom'
 import './App.css';
-import ListComponents from "./components/ListComponents";
+import ListComponents from "./components/ListComponent";
 import AddComponentForm from "./components/AddComponentForm";
 
 class App extends Component {
