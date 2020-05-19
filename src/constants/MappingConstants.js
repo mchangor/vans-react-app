@@ -13,9 +13,5 @@ export const ComponentDetails = {
     manufacturer: String,
     productCode: String,
     notes: String,
-    purchaseDate: Date,
-    price: String,
-    purchasedPlace: String,
-    billNumber: String,
 };
 

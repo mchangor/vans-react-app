@@ -17,11 +17,7 @@ const initialState = {
     storageLabel: '',
     manufacturer: '',
     productCode: '',
-    notes: '',
-    purchaseDate: '',
-    price: '',
-    purchasedPlace: '',
-    billNumber: ''
+    notes: ''
 };
 
 class AddComponentForm extends Component {
@@ -49,10 +45,6 @@ class AddComponentForm extends Component {
         componentDetails.manufacturer = this.state.manufacturer;
         componentDetails.productCode = this.state.productCode;
         componentDetails.notes = this.state.notes;
-        componentDetails.purchaseDate = this.state.purchaseDate;
-        componentDetails.purchasedPlace = this.state.purchasedPlace;
-        componentDetails.price = this.state.price;
-        componentDetails.billNumber = this.state.billNumber;
         event.preventDefault();
         //Todo: remove console logs
         console.log(componentDetails);
@@ -70,19 +62,19 @@ class AddComponentForm extends Component {
                 <form onSubmit={this.buildComponentDetailsObject.bind(this)}>
                     <div className="form-wrapper">
                         <TextField label="Unit Name" onChange={this.handleChange('unitName')} className={"field"}
-                                   required={true}/>
+                                   helperText={"Manufacturing ID"} required={true}/>
                         <TextField label="Unit Type" onChange={this.handleChange('unitType')} className={"field"}
-                                   required={true}/>
+                                   helperText={"Category or group"} required={true}/>
                         <TextField label="Reference Code" onChange={this.handleChange('referenceCode')} className={"field"}
                                    helperText={"Internal reference code for the component"} required={true}/>
                         <TextField label="Quantity" onChange={this.handleChange('quantity')} className={"field"}
                                    required={true}/>
                         <TextField label="Parameters" onChange={this.handleChange('parameters')} className={"field"}
-                                   required={true}/>
+                                   helperText={"Detailed Description"} required={true}/>
                         <TextField label="Datasheet URL" onChange={this.handleChange('datasheetUrl')} className={"field"}
-                                   required={false}/>
+                                   helperText={"Datasheet Link"} required={false}/>
                         <TextField label="Product URL" onChange={this.handleChange('productUrl')} className={"field"}
-                                   required={false}/>
+                                   helperText={"Distributor link"} required={false}/>
                         <TextField label="Storage Location" onChange={this.handleChange('storageLocation')} className={"field"}
                                    required={true}/>
                         <TextField label="Storage Label" onChange={this.handleChange('storageLabel')} className={"field"}
@@ -90,16 +82,8 @@ class AddComponentForm extends Component {
                         <TextField label="Manufacturer" onChange={this.handleChange('manufacturer')} className={"field"}
                                    required={false}/>
                         <TextField label="Product Code" onChange={this.handleChange('productCode')} className={"field"}
-                                   required={true}/>
+                                   helperText={"Distributor ID"} required={true}/>
                         <TextField label="Notes" onChange={this.handleChange('notes')} className={"field"}
-                                   required={false}/>
-                        <TextField label="Purchase Date" onChange={this.handleChange('purchaseDate')} className={"field"}
-                                   required={false}/>
-                        <TextField label="Price" onChange={this.handleChange('price')} className={"field"}
-                                   required={false}/>
-                        <TextField label="Purchased Place" onChange={this.handleChange('purchasedPlace')} className={"field"}
-                                   required={false}/>
-                        <TextField label="Bill Number" onChange={this.handleChange('billNumber')} className={"field"}
                                    required={false}/>
 
                         <div className={"buttonContainer"}>
