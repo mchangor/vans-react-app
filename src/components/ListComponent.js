@@ -17,18 +17,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useHistory } from "react-router-dom";
+import {ComponentService} from "../services/ComponentService";
 
-function createData(componentId, unitName, type, referenceCode, quantity, parameters, storageLocation) {
-    return { componentId, unitName, type, referenceCode, quantity, parameters, storageLocation };
-}
-
-const rows = [
-    createData(1, 'Cupcake', 305, 3.7, 67, 4.3,3),
-    createData(2, 'Donut', 452, 25.0, 51, 4.9,3),
-    createData(3, 'Eclair', 262, 16.0, 24, 6.0,5),
-    createData(4,'Frozen yoghurt', 159, 6.0, 24, 4.0,5),
-    createData(5,'Gingerbread', 356, 16.0, 49, 3.9,6),
-];
+let rows = ComponentService.createDataRows();
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
